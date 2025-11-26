@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumina – Event Organizer</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat&display=swap" rel="stylesheet">
+  <style>
+    /* --- Global Styles --- */
+    :root {
+      --gold: #FFD166;
+      --navy: #1A1A40;
+      --coral: #FF6B6B;
+      --ivory: #FFF8F0;
+      --silver: #C0C0C0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--navy);
+      background-color: var(--ivory);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* --- Header / Navbar --- */
+    header {
+      background-color: var(--navy);
+      color: var(--ivory);
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: background 0.3s;
+    }
+
+    header.scrolled {
+      background-color: rgba(26,26,64,0.95);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--gold);
+    }
+
+    nav a {
+      margin-left: 25px;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      background: linear-gradient(rgba(26,26,64,0.5), rgba(26,26,64,0.5)), url('https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+      color: var(--ivory);
+      text-align: center;
+      padding: 150px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 0.3s;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 0.6s;
+    }
+
+    .hero .btn {
+      background-color: var(--gold);
+      color: var(--navy);
+      padding: 15px 30px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 0.9s;
+    }
+
+    .hero .btn:hover {
+      background-color: var(--coral);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* --- Section Titles --- */
+    section h3 {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: var(--navy);
+      position: relative;
+      opacity: 0;
+      animation: fadeInUp 1s forwards;
+    }
+    .Aboutus {
+      background-color: wheat;
+      color: var(--navy);
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .Aboutus {
+      max-width: 700px;
+      margin: 0 auto 20px;
+      font-style: italic;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    /* --- Services Section --- */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 50px;
+    }
+
+    .service-card {
+      background-color: var(--ivory);
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .service-card h4 {
+      margin-bottom: 15px;
+      color: var(--gold);
+    }
+
+    /* --- Portfolio Section --- */
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 50px;
+    }
+
+    .portfolio img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    .portfolio img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    /* --- Testimonials Section --- */
+    .Howwework {
+      background-color: var(--gold);
+      color: var(--navy);
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .Howwework {
+      max-width: 700px;
+      margin: 0 auto 20px;
+      font-style: italic;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    /* --- Contact Section --- */
+    .contact {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .contact form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: grid;
+      gap: 15px;
+    }
+
+    .contact input, .contact textarea {
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid var(--navy);
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    .contact button {
+      background-color: var(--gold);
+      color: var(--navy);
+      padding: 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .contact button:hover {
+      background-color: var(--coral);
+    }
+
+    /* --- Footer --- */
+    footer {
+      background-color: var(--navy);
+      color: var(--ivory);
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+      }
+
+      nav a {
+        margin: 10px 0 0 0;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header">
+    <h1>Lumina</h1>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#Aboutus">About us</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#Howwework">How we work</a>
+      <a href="#Packageoffered">Package offered</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Lumina</h2>
+    <p>Illuminate every moments</p>
+    <button class="btn">Book Your Event</button>
+  </section>
+    
+  <section id="Aboutus" class="Aboutus">
+    <h3>About us</h3>
+    <h4> Lumina </h4>
+       <h4>At Lumina, we turn your special moments into unforgettable celebrations. From birthdays and school events to corporate gatherings, we design and plan events with creativity, style, and flawless execution.</h4>
+     
+       <h4>Our name, Lumina, represents light and brilliance—just like the memories we help you create. Every event is thoughtfully crafted to reflect your vision, leaving guests inspired and moments illuminated.</h4>
+       <h4>---------</h4>
+ <h4> Lumina – Illuminate every Moments.</h4>
+</section>
+
+  <!-- Services Section -->
+  <section id="services">
+    <h3>Our Services</h3>
+    <div class="services">
+      <div class="service-card">
+        <h4>Birthdays & Celebrations</h4>
+        <p>Creative themes, decorations, and seamless coordination for memorable birthdays.</p>
+      </div>
+      <div class="service-card">
+        <h4>School & Corporate Events</h4>
+        <p>Professional planning for events that impress students, staff, and clients alike.</p>
+      </div>
+      <div class="service-card">
+        <h4>Weddings & Private Parties</h4>
+        <p>Elegant planning and design to make every intimate celebration shine.</p>
+      </div>
+      <div class="service-card">
+        <h4>Customized Event Planning</h4>
+        <p>Tailored solutions to fit your vision, style, and budget.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio">
+    <h3>Our Portfolio</h3>
+    <h3>Past events</h3>
+    <div class="portfolio">
+      <img src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t1.15752-9/589175448_1508922340389642_6799950893465728608_n.png?stp=dst-png_s720x720&_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeEx84lcFJYhUuEbaQ30o0FMoFJVkfhILaygUlWR-EgtrN9NBh0XPKUVA0QPIsgXEyRqfLYEDa781qzcqEtRx62O&_nc_ohc=SqlEaiMN4ggQ7kNvwG2p6Bt&_nc_oc=AdmS9pGIhCyHd7HfmAzChtAGmL7ZYusmsi49J2bcdrQSRYhfhSums3cqsVcjeLuUUa5AmyzXDuzElocYRydL6ngk&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=03_Q7cD3wEFmIPzhnKveeFSVrej3OoGuxOk7HTB1XWw-dlGCfS6Pw&oe=694EA27D" alt="Event 1">
+      <img src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t1.15752-9/588217332_1199370618783450_2585342332321834416_n.png?stp=dst-png_s480x480&_nc_cat=108&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeGNsT_Qbd-lD8SmX3w0wQUSuPmdt0h7nZW4-Z23SHudlQCPvMLDShd7JfoMlPFAhsE8a8JHAkjM460_YOfgYY1c&_nc_ohc=FTSoEfD2VgsQ7kNvwFLIjqh&_nc_oc=AdmDkrFFjXi8ls79IWOu13oVMv22T3GzoRYqtpPG5Z1cJ7PbIgZWx_HwPUcJCBSGCrZQQY-iAwF-hQIJAtl7SoYr&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=03_Q7cD3wFjh9QgFol6n02Bm216N8m7rD2C7ytQnE5wh91oqhg7aw&oe=694E8B9A" alt="Event 2">
+      <img src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t1.15752-9/589885700_844205548321185_4155929822639933007_n.png?stp=dst-png_s480x480&_nc_cat=107&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeH7HBC_lTThDzynz2E7VRxyGP_pFongw_IY_-kWieDD8r6QaJUMVMIr9BI3ajuUO8zq2WNc5FzllIHt1wtPc28i&_nc_ohc=7-luGeoPxfsQ7kNvwF_esXA&_nc_oc=Adks33pAdJufUWTVvKNty1NFbNgedRxAw2_f-jLjkcQ7Mzgn-NHNvQDtY6x28A-UQ3bA77a9qTNzwvX0IEkwrGtE&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=03_Q7cD3wH3a9r-PUbb4jbCmUJVxGczeVAkPLEEb-Knkdqu9OCSAg&oe=694E876F" alt="Event 3">
+      <img src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t1.15752-9/590297444_1039815548269033_58266468093120620_n.png?stp=dst-png_s480x480&_nc_cat=107&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeH6lu0HkpuNKcBRDcx9grO7BlpfGqwjHUQGWl8arCMdRCtSsJRwoLCj6Sb5UFJDYJjygRB28vz3Ls-TnKS8oicT&_nc_ohc=VrbTJBy0G-gQ7kNvwE4a1QI&_nc_oc=AdlFLjcETKSSJAY7MxuHUF-wuZdCJNfuN-YGl5x2X_mrhl06VKxoGmHOfwD5cA8_pPclNKtx7zL8TVDtGHp5jKgU&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=03_Q7cD3wHXgWKNuy9r9DXS1ZALi-Mj4E7HmZWucvtzj1blrhWZYw&oe=694E8603" alt="Event 4">
+      <img src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t1.15752-9/588869327_1177246867232187_6637341785699200525_n.png?stp=dst-png_s480x480&_nc_cat=111&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeH7_A4js5wxHhTZ7f0bakD9HUhvYbhrgjMdSG9huGuCMxcWp2LjMT_YE4EEvI_9QrJ9cT70EsoUmgeXh4SyINzB&_nc_ohc=0X-IA3lRvgkQ7kNvwFAamxu&_nc_oc=AdlT1Xru4Nmp0g-6WAvea-qbKXHeZx9hJQ1C4ZZfNCTC6-O4FWxViZB3HKGx5F6M_cVU85V-WoBOF7bxRb1ensc_&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=03_Q7cD3wGW9JkFG2dsYGc8Uclgk0YMzSsJT_NXJ3qEXfo_wFdghQ&oe=694E951C" alt="Event 5">
+      <img src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t1.15752-9/588831067_4192050421015223_6095473227963041033_n.png?stp=dst-png_s480x480&_nc_cat=108&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeHucULajvT7It9mQd5fwqDtLeUACYpK52Mt5QAJikrnYxMh6SthSyrQHp8GWIvhxZReTBw6iAJBKH-pUJqVTfgS&_nc_ohc=IARAm6mVDycQ7kNvwGjyTOm&_nc_oc=Adm50H6PX58cj76aj92Men3bOyjR4cOxdjzj7HuKD1E1Mn2oMHqwaYByhZQmUCg77uN5Vtghijcu3bH_jK15Nt51&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=03_Q7cD3wHEzXyqYGaJ9hjeWRk0hKmYH3cm8cdNtENNIUiE13pUTg&oe=694E9C0F" alt="Event 6">
+      <img src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t1.15752-9/588946102_1856492775240586_4974869283622991721_n.png?stp=dst-png_s480x480&_nc_cat=106&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeFNa8hTZwhi8I7Zl2-SQ82VHk98Wi01F2MeT3xaLTUXYz--eGqEEcP5_qZmTwLHZIrRIVEZ0gObY2Ymt388PdUv&_nc_ohc=uyU7hiUvTeoQ7kNvwEuli50&_nc_oc=AdnWZcxQofGTpStMH46NRJIY_TG5BYVk6zQgSAK37Cl36rYZtSAS1kaD9bRLOc7Bplq9cRd_I4xCZ2dmQCd2qamo&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=03_Q7cD3wGUUEfDurowBVJUNUgdz3zzD5lc2JJ8yNmef5th541myQ&oe=694E71D7" alt="Event 7">
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="Howwework" class="Howwework">
+    <h3>How we work</h3>
+    <p class="Howwework">"At Lumina, we ensure every event is seamless, memorable, and tailored to your vision. Here’s how we bring your celebrations to life:</p>
+<p class="Howwework"></p>1. Consultation & Idea Sharing We start by understanding your vision, preferences, and goals for the event. Every detail matters—from theme, colors, and style to the atmosphere you want to create.</p>
+<p class="Howwework"></p>2. Planning & Proposal Our team creates a detailed plan including design concepts, budget, timeline, and logistics. You’ll get a clear proposal to review and approve before we move forward.</p>
+<p class="Howwework"></p>3. Design & Preparation We bring the vision to life with décor, lighting, seating arrangements, and all the creative elements. We coordinate vendors, materials, and schedules to ensure everything is ready.</p>
+<p class="Howwework"></p>4. Event Setup & Execution On the big day, we manage the setup, decorations, and flow of the event. Our team ensures everything runs smoothly while you focus on enjoying the celebration.</p>
+<p class="Howwework"></p>5. Post-Event Wrap-Up We handle teardown, cleanup, and any final touches. We also gather feedback to continually improve and ensure every client’s experience is perfect.</p>
+At Lumina, every step is designed to make your event shine—from the first idea to the last spark.</p>
+    <p class="Howwework">'Lumina'</p>
+  </section>
+
+  <section id="Packageoffered">
+    <h3>Package offered</h3>
+    <div class="Packageoffered">
+      
+      <div class="service-card">
+        <h4> The GLOW Package</h4>
+        <p>Starts at ₱45,000.00</p>
+        <p>On-site execution, vendor confirmation, event timeline, and trouble shooting.</p>
+      </div>
+      <div class="service-card">
+        <h4>The RADIANCE Package</h4>
+        <p>Starts at ₱75,000.00</p>
+        <p>All GLOW services + venue sourcing, vendor curation, (3 Vendors), design conceptualization, and budget tracking.</p>
+      </div>
+      <div class="service-card">
+        <h4>The BRILLIANCE Package</h4>
+        <p>Starts at ₱120,000.00 </p>
+        <p>All RADIANCE services + complete design, unlimited consultation, comprehensive verdor, management, and full logistic</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h3>Contact Us</h3>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="text" placeholder="Event Type" required>
+      <input type="date" placeholder="Event Date" required>
+      <textarea placeholder="Message" rows="5" required></textarea>
+      <button type="submit">Send Inquiry</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Lumina – Illuminate Your Moments | All Rights Reserved</p>
+  </footer>
+
+  <!-- JS for Sticky Header -->
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+</body>
+</html>
